@@ -1,5 +1,6 @@
 # Duplicate this file and put your customization here
 
+
 ##
 ## common settings and setting for the webserver
 airflow:
@@ -32,7 +33,7 @@ airflow:
     repository: puckel/docker-airflow
     ##
     ## image tag
-    tag: 1.9.0
+    tag: 1.9.0-2
     ##
     ## Image pull policy
     ## values: Always or IfNotPresent
@@ -49,18 +50,16 @@ airflow:
   ## it, which may cause unwanted issues on the database.
   web_replicas: 1
   ##
-  ## Number of replicas for the flower server. Usually 1 is enough
-  flower_replicas: 1
-  ##
   ## Custom airflow configuration environment variables
-  ## NOTE: Unfortunately, changing these value won't cause a reployment, despite the trick described
-  ## at:
-  ##   https://github.com/kubernetes/helm/blob/master/docs/charts_tips_and_tricks.md#automatically-roll-deployments-when-configmaps-or-secrets-change
-  ## To force redeployment after configuration change, you need to use either `--recreate-pods`
-  ## either the Fabric8 configmap controller (This helm chart already carries the annotation).
-  ## See:
-  ##   https://github.com/fabric8io/configmapcontroller/
+  ## Use this to override any airflow setting settings defining environment variables in the 
+  ## following form: AIRFLOW__<section>__<key>.
+  ## See the Airflow documentation: http://airflow.readthedocs.io/en/latest/configuration.html?highlight=__CORE__#setting-configuration-options)
   config: {}
+  ##
+  ## Configure pod disruption budget for the scheduler
+  pod_disruption_budget:
+    maxUnavailable: 1
+
 
 ##
 ## Configuration for celery workers
@@ -68,6 +67,7 @@ celery:
   ##
   ## Number of celery workers to initialize
   num_workers: 1
+
 
 ##
 ## Ingress configuration
@@ -151,6 +151,7 @@ ingress:
       # traefik.frontend.rule.type: PathPrefixStrip
       # kubernetes.io/ingress.class: traefik
 
+
 ##
 ## Storage configuration
 persistence:
@@ -170,8 +171,10 @@ persistence:
   ## Persistant storage size request
   size: 1Gi
 
+
 ##
 ## Configure DAGs deployment and update
+## EXPERIMENTAL
 dags:
   ##
   ## pickle_dag: send DAG using pickle from the scheduler to the worker
@@ -204,9 +207,10 @@ dags:
   ## print debug logs
   git_sync_debug: false
 
+
+##
 ## Configuration values for the postgresql dependency.
 ## ref: https://github.com/kubernetes/charts/blob/master/stable/postgresql/README.md
-##
 postgresql:
   ##
   ## Use the PostgreSQL chart dependency.
@@ -233,6 +237,7 @@ postgresql:
     ##
     ## Enable PostgreSQL persistence using Persistent Volume Claims.
     enabled: true
+
 
 ## Configuration values for the postgresql dependency.
 ## ref: https://github.com/kubernetes/charts/blob/master/stable/redis/README.md
