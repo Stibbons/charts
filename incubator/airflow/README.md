@@ -101,7 +101,7 @@ If you are on Azure, you can use [Azure File Storage (AFS)](https://docs.microso
 If you want more control on the way you deploy your DAGs, you can use embedded DAGs, where DAGs
 are burned inside the Docker container deployed as Scheduler and Workers.
 
-Be aware this requirement more heavy tooling than using git-sync, especially if you use CI/CD:
+Be aware this requirement uses more heavy tooling than mounting a persistent volume, especially if you use CI/CD:
 
 - your CI/CD should be able to build a new docker image each time your DAGs are updated.
 - your CI/CD should be able to control the deployment of this new image in your kubernetes cluster
