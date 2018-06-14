@@ -186,6 +186,8 @@ persistence:
   ##
   ## enable persistance storage
   enabled: false
+  ## Existing claim to use
+  existingclaim: airflow-claim
   ##
   ## Persistent Volume Storage Class
   ## If defined, storageClassName: <storageClass>
