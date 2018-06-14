@@ -210,6 +210,7 @@ The following table lists the configurable parameters of the Airflow chart and t
 | `ingres.flower.liveness_path`              | path to the liveness probe (read `values.yaml`)         | `/`                                                        |
 | `ingres.flower.annotations`                | annotations for the web ui ingress                      | `{}`                                                       |
 | `persistance.enabled`                      | enable persistance storage for DAGs                     | `false`                                                    |
+| `persistance.existingClaim`                | if using an existing claim, specify the name here       | airflow-claim                                              |
 | `persistance.storageClass`                 | Persistent Volume Storage Class                         | (undefined)                                                |
 | `persistance.accessMode`                   | PVC access mode                                         | `ReadWriteOnce`                                            |
 | `persistance.size`                         | Persistant storage size request                         | `1Gi`                                                      |
